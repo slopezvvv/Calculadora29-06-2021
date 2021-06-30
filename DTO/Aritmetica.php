@@ -25,9 +25,9 @@ class Aritmetica{
 $aritmetica = new Aritmetica();
 
 $out = 'No existe la operación solicitada ! vuelva a intentar.';
-$input = intval($_GET['op']);
-$a =  floatval($_GET['factorA']); // ESTO HAY QUE MODIFICARLO AHORA!!
-$b = floatval($_GET['factorB']);
+$input = intval($_POST['op']);
+$a =  floatval($_POST['factorA']); // ESTO HAY QUE MODIFICARLO AHORA!!
+$b = floatval($_POST['factorB']);
 switch($input){
     case 0:
         $out = $aritmetica->sum($a, $b);
@@ -44,7 +44,8 @@ switch($input){
     default:
         break;
 }
-header('Location: ../index.php?out='.$out);
+$_SESSION[KEY_OUT] = $out;
+header('Location: ../index.php');
 //$a = 0; // integer
 //$b = 1; // integer
 //$c = "Hola mundo, esta es la variable C"; // strings

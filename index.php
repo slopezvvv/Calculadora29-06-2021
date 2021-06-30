@@ -1,6 +1,7 @@
 <?php 
 session_start(); // resume sesion creada, o crea una nueva , PRIMERA LINEA DE CÓDIGO SIEMPRE SI SE USAN SESIONES
 include("DTO/Constantes.php");
+include("Modelo/Conexion.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,10 +15,33 @@ include("DTO/Constantes.php");
                 height:50px;
                 cursor:pointer;
             }
+            .outputs{
+                text-align:right;
+                border:solid 2px #cccccc;
+                width:25%;
+            }
         </style>
     </head>
     <body>
+        <p id="output_1" class="outputs">-</p>
+        <p id="output_2" class="outputs">0<p/>
        <?php
+       $conexion = new Conexion();
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
        //include('DTO/Aritmetica.php');
        function printAlert($a){
            echo("<script>alert('".$a."');</script>");
@@ -33,22 +57,23 @@ include("DTO/Constantes.php");
            }
            $_SESSION[KEY_ERROR] = null;
        }
-       else if(isset($_GET['out'])) printAlert($_GET['out']);
+       else if(isset($_SESSION[KEY_OUT])){
+           echo('<script>output_1.innerHTML='.$_SESSION[KEY_OUT].';</script>');//printAlert($_GET['out']);
+           $_SESSION[KEY_OUT] = null;
+       }
        ?>
-        <form action="DTO/Aritmetica.php" method="GET">
-            <input name="output" type="text" disabled="true" style="text-align:right;" placeholder="0"/>
+        
+        <form action="DTO/Aritmetica.php" method="POST">
             <!-- TEST -->
             <input type="hidden" name="op" value="3"/>
-            <input type="hidden" name="factorA" value="1"/>
-            <input type="hidden" name="factorB" value="1"/>
-            <input type="submit" value="CLICK ME!" />
+            <input type="submit" class="boton_calc" value="=" />
         </form>
         
         <?php
         $array_botones=[];
         //function llenarBotones(&$array_botones){
             for($i=9;$i >= 0;$i--) array_push($array_botones, $i); // botones números
-            for($ii=0;$ii < 5;$ii++) {
+            for($ii=0;$ii < 4;$ii++) {
                 $simbolo="+";
                 switch($ii){
                     case 1:
@@ -60,8 +85,6 @@ include("DTO/Constantes.php");
                     case 3:
                         $simbolo="X";
                         break;
-                    case 4:
-                        $simbolo="=";
                     default:
                         break;
                 }
